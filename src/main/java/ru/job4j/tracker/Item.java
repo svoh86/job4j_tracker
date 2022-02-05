@@ -31,7 +31,6 @@ public class Item {
         return created;
     }
 
-
     public String getName() {
         return name;
     }
