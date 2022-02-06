@@ -27,7 +27,6 @@ public class Product {
         this.count = count;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
