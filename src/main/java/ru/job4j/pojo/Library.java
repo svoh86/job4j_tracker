@@ -29,7 +29,5 @@ public class Library {
                 System.out.println(books[i].getName());
             }
         }
-
-
     }
 }
