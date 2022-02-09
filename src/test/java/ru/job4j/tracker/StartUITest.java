@@ -18,4 +18,25 @@ public class StartUITest {
         assertThat(created.getName(), is(expected.getName()));
 
     }
+
+    @Test
+    public void whenEditItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("new item");
+        tracker.add(item);
+        String[] answer = {String.valueOf(item.getId()), "edit item"};
+        StartUI.editItem(new StubInput(answer), tracker);
+        Item edited = tracker.findById(item.getId());
+        assertThat(edited.getName(), is("edit item"));
+    }
+
+    @Test
+    public void whenDeleteItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item();
+        tracker.add(item);
+        String[] answer = {String.valueOf(item.getId())};
+        StartUI.deleteItem(new StubInput(answer), tracker);
+        assertNull(item.getName());
+    }
 }
