@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
-    @Test
+    /*@Test
     public void whenCreateItem() {
         Tracker tracker = new Tracker();
         Input in = new StubInput(new String[]{"0", "New item", "1"});
@@ -45,5 +45,17 @@ public class StartUITest {
         UserAction[] actions = {new DeleteAction(), new ExitAction()};
         new StartUI().init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()), is(nullValue()));
+    }*/
+
+    @Test
+    public void whenExit() {
+        Output out = new StubOutput();
+        Input in = new StubInput(new String[]{"0"});
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {new ExitAction()};
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(out.toString(), is("Menu." + System.lineSeparator()
+                + "0. Exit Program" + System.lineSeparator()
+        ));
     }
 }
