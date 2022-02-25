@@ -10,7 +10,6 @@ import java.util.TreeSet;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-
 public class UserTest {
 
     @Test
