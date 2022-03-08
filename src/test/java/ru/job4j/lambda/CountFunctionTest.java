@@ -29,8 +29,8 @@ public class CountFunctionTest {
     @Test
     public void whenExpFunctionThenLinearResults() {
         CountFunction function = new CountFunction();
-        List<Double> result = function.diapason(5, 8, x -> Math.pow(x, 2));
-        List<Double> expected = Arrays.asList(25D, 36D, 49D);
+        List<Double> result = function.diapason(1, 4, x -> Math.pow(2, x));
+        List<Double> expected = Arrays.asList(2D, 4D, 8D);
         assertThat(result, is(expected));
     }
 }
