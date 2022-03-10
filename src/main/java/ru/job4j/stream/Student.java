@@ -16,7 +16,6 @@ public class Student {
         this.score = score;
     }
 
-
     public int getScore() {
         return score;
     }
