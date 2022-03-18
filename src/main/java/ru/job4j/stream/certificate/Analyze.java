@@ -76,7 +76,7 @@ public class Analyze {
                                 .stream()
                                 .mapToInt(Subject::getScore)
                                 .sum()))
-                .max((Comparator.comparingInt(o -> (int) o.getScore())))
+                .max((Comparator.comparingDouble(Tuple::getScore)))
                 .orElse(new Tuple(" ", 0D));
     }
 
@@ -90,13 +90,12 @@ public class Analyze {
         return stream
                 .flatMap(pupil -> pupil.getSubjects().stream())
                 .collect(Collectors.groupingBy(Subject::getName,
-                        LinkedHashMap::new,
                         Collectors.summingDouble(Subject::getScore)
                 ))
                 .entrySet()
                 .stream()
                 .map(m -> new Tuple(m.getKey(), m.getValue()))
-                .max(Comparator.comparingInt(s -> (int) s.getScore()))
+                .max(Comparator.comparingDouble(Tuple::getScore))
                 .orElse(new Tuple(" ", 0D));
     }
 }
