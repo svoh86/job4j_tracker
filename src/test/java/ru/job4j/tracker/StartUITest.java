@@ -21,13 +21,13 @@ public class StartUITest {
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output output = new StubOutput();
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Replaced item"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(new String[]{"0", String.valueOf(item.getId()), replacedName, "1"});
         List<UserAction> actions = List.of(new EditAction(output), new ExitAction(output));
         String ln = System.lineSeparator();
-        new StartUI(output).init(in, tracker, actions);
+        new StartUI(output).init(in, memTracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + ln
                         + "0. Edit item" + ln
@@ -44,12 +44,12 @@ public class StartUITest {
     @Test
     public void whenShowAllItemsTestOutputIsSuccessfully() {
         Output output = new StubOutput();
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("New item"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("New item"));
         Input in = new StubInput(new String[]{"0", "1"});
         List<UserAction> actions = List .of(new ShowAllAction(output), new ExitAction(output));
         String ln = System.lineSeparator();
-        new StartUI(output).init(in, tracker, actions);
+        new StartUI(output).init(in, memTracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + ln
                         + "0. Show all items" + ln
@@ -66,12 +66,12 @@ public class StartUITest {
     @Test
     public void whenFindByNameTestOutputIsSuccessfully() {
         Output output = new StubOutput();
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("New"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("New"));
         Input in = new StubInput(new String[]{"0", item.getName(), "1"});
         List<UserAction> actions = List.of(new FindByNameAction(output), new ExitAction(output));
         String ln = System.lineSeparator();
-        new StartUI(output).init(in, tracker, actions);
+        new StartUI(output).init(in, memTracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + ln
                         + "0. Find items by name" + ln
@@ -88,12 +88,12 @@ public class StartUITest {
     @Test
     public void whenFindByIdTestOutputIsSuccessfully() {
         Output output = new StubOutput();
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("New"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("New"));
         Input in = new StubInput(new String[]{"0", String.valueOf(item.getId()), "1"});
         List<UserAction> actions = List.of(new FindByIdAction(output), new ExitAction(output));
         String ln = System.lineSeparator();
-        new StartUI(output).init(in, tracker, actions);
+        new StartUI(output).init(in, memTracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + ln
                         + "0. Find item by id" + ln
@@ -110,12 +110,12 @@ public class StartUITest {
     @Test
     public void whenDeleteItemOutputIsSuccessfully() {
         Output output = new StubOutput();
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Deleted item"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("Deleted item"));
         Input in = new StubInput(new String[]{"0", String.valueOf(item.getId()), "1"});
         List<UserAction> actions = List.of(new DeleteAction(output), new ExitAction(output));
         String ln = System.lineSeparator();
-        new StartUI(output).init(in, tracker, actions);
+        new StartUI(output).init(in, memTracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + ln
                         + "0. Delete item" + ln
@@ -133,9 +133,9 @@ public class StartUITest {
     public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(new String[]{"0"});
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         List<UserAction> actions = List.of(new ExitAction(out));
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is("Menu." + System.lineSeparator()
                 + "0. Exit Program" + System.lineSeparator()
                 + "===Exit Program===" + System.lineSeparator()));
@@ -145,10 +145,10 @@ public class StartUITest {
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(new String[]{"8", "0"});
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         List<UserAction> actions = List.of(new ExitAction(out));
         String ln = System.lineSeparator();
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is(
                 "Menu." + ln
                         + "0. Exit Program" + ln
