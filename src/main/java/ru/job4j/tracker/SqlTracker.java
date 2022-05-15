@@ -92,11 +92,7 @@ public class SqlTracker implements Store, AutoCloseable {
         try (PreparedStatement ps = cn.prepareStatement("select * from items")) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    itemList.add(new Item(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getTimestamp(3).toLocalDateTime()
-                    ));
+                    itemList.add(findItem(rs));
                 }
             }
         } catch (SQLException e) {
@@ -113,11 +109,7 @@ public class SqlTracker implements Store, AutoCloseable {
             ps.setString(1, key);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    itemList.add(new Item(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getTimestamp(3).toLocalDateTime()
-                    ));
+                    itemList.add(findItem(rs));
                 }
             }
         } catch (SQLException e) {
@@ -128,20 +120,25 @@ public class SqlTracker implements Store, AutoCloseable {
 
     @Override
     public Item findById(int id) {
-        Item item = new Item();
+        Item item = null;
         try (PreparedStatement ps = cn.prepareStatement(
                 "select * from items where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    item.setId(rs.getInt("id"));
-                    item.setName(rs.getString("name"));
-                    item.setCreated(rs.getTimestamp("created").toLocalDateTime());
+                if (rs.next()) {
+                    item = findItem(rs);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return item;
+    }
+
+    private Item findItem(ResultSet rs) throws SQLException {
+        return new Item(
+                rs.getInt(1),
+                rs.getString(2),
+                rs.getTimestamp(3).toLocalDateTime());
     }
 }
