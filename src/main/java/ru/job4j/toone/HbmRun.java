@@ -23,10 +23,22 @@ public class HbmRun {
             create(role, sf);
             User user = new User();
             user.setName("Admin Admin");
+            user.setMessengers(List.of(
+                    new UserMessenger(0, "tg", "@tg"),
+                    new UserMessenger(0, "wu", "@wu")
+            ));
             user.setRole(role);
             create(user, sf);
+
+            User stored = sf.openSession()
+                    .createQuery("from User where id = :fId", User.class)
+                    .setParameter("fId", user.getId())
+                    .getSingleResult();
+            stored.getMessengers().forEach(System.out::println);
+            /**
             findAll(User.class, sf)
                     .forEach(System.out::println);
+             */
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
