@@ -13,10 +13,10 @@ public class ItemSorter {
                 new Item(3, "A")
         );
         System.out.println(items);
-//        Collections.sort(items, new ItemAscByName());
+        Collections.sort(items, new ItemAscByName());
         items.sort(new ItemAscByName());
         System.out.println(items);
-//        Collections.sort(items, new ItemDescByName());
+        Collections.sort(items, new ItemDescByName());
         items.sort(new ItemDescByName());
         System.out.println(items);
     }
